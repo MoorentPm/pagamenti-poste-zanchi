@@ -137,7 +137,11 @@ ALLEGATI
 5 - Bonifico 21,25 EUR (causale 202506678603, fattura 202506678603)
 </pre>
   </details>
-  <div id="list-rec"></div>
+  <div class="row done" style="margin-top:16px;grid-template-columns:auto 1fr">
+    <span style="width:26px;height:26px;background:var(--marker);display:grid;place-content:center;color:var(--charcoal);font-weight:700">✓</span>
+    <div><div class="t">Reclamo inviato a Poste</div>
+    <div class="meta">Mail a pagamenti.energia@postepay.it con fatture e ricevute dei bonifici in allegato. Yassine è in copia per conoscenza: vede tutto quello che ha visto Poste.</div></div>
+  </div>
 
   <h2 class="d">Da <span class="it">pagare</span></h2>
   <div class="note">Nessun bonifico nostro corrisponde a queste fatture. Spunta quando pagata.</div>
@@ -165,7 +169,6 @@ ALLEGATI
 const CLIENTE = "41105400";
 // stato: "pay" = da pagare, "dub" = dubbia
 const FATTURE = [
-  {n:"RECLAMO", per:"Mail a pagamenti.energia@postepay.it con fatture e ricevute allegate", em:"", sc:"", imp:0, g:"rec", titolo:"Reclamo inviato"},
   {n:"202600866423", per:"Dic 2025",           em:"13/01/2026", sc:"02/02/2026", imp:48.32,  g:"pay"},
   {n:"202602512688", per:"Gen–Feb 2026",       em:"11/03/2026", sc:"02/04/2026", imp:48.32,  g:"pay"},
   {n:"202603189209", per:"Mar 2026",           em:"14/04/2026", sc:"04/05/2026", imp:48.32,  g:"pay"},
@@ -187,7 +190,7 @@ let st; try{ st = JSON.parse(localStorage.getItem(LS)||"{}"); }catch(e){ st = {}
 const save = () => { try{ localStorage.setItem(LS, JSON.stringify(st)); }catch(e){} };
 
 function render(){
-  for (const g of ["rec","pay","dub"]){
+  for (const g of ["pay","dub"]){
     const el = document.getElementById("list-"+g); el.innerHTML = "";
     FATTURE.filter(f=>f.g===g).forEach(f=>{
       const s = st[f.n] || {};
